@@ -1,4 +1,4 @@
-package com.healthteat.domain;
+package com.healthteat.common.domain;
 
 import lombok.Getter;
 import org.springframework.data.annotation.CreatedDate;

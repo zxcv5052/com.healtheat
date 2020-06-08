@@ -1,4 +1,4 @@
-package com.healthteat.config;
+package com.healthteat.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
