@@ -9,7 +9,6 @@ import java.time.LocalDateTime;
 
 @Getter
 public class MemberResponseDto{
-    private TemplateResult templateResult;
     private Long id;
     private String member_id;
     private String member_name;
@@ -17,8 +16,7 @@ public class MemberResponseDto{
     private LocalDateTime create_at;
     private LocalDateTime modified_at;
 
-    public MemberResponseDto(TemplateResult templateResult, Member entity){
-        this.templateResult = templateResult;
+    public MemberResponseDto(Member entity){
         this.id = entity.getId();
         this.member_id = entity.getMember_id();
         this.member_name = entity.getMember_name();
@@ -27,7 +25,4 @@ public class MemberResponseDto{
         this.modified_at = entity.getModified_at();
     }
 
-    public MemberResponseDto(TemplateResult templateResult) {
-        this.templateResult = templateResult;
-    }
 }

@@ -65,7 +65,6 @@ import java.util.Map;
                     .setSigningKey(SALT.getBytes("UTF-8"))
                     .parseClaimsJws(jwt);
         } catch (Exception e) {
-
 			Map<String,Object> testMap = new HashMap<>();
 			testMap.put("memberId", 2);
 			return testMap;

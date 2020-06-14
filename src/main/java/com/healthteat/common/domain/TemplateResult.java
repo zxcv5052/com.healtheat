@@ -1,5 +1,6 @@
 package com.healthteat.common.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 
@@ -8,6 +9,7 @@ import lombok.Getter;
 public class TemplateResult<T> {
     private Integer code;
     private String message;
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     private T data;
 
     // only result OK
