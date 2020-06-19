@@ -4,6 +4,8 @@ import com.healthteat.domain.member.Member;
 import lombok.Builder;
 import lombok.Getter;
 
+import javax.servlet.http.HttpServletResponse;
+
 @Getter
 public class MemberLoginRequestDto {
     private String member_id;

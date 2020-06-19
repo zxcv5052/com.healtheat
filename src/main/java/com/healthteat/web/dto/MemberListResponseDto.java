@@ -8,7 +8,7 @@ import lombok.Getter;
 import java.time.LocalDateTime;
 
 @Getter
-public class MemberResponseDto{
+public class MemberListResponseDto {
     private Long id;
     private String member_id;
     private String member_name;
@@ -16,7 +16,7 @@ public class MemberResponseDto{
     private LocalDateTime create_at;
     private LocalDateTime modified_at;
 
-    public MemberResponseDto(Member entity){
+    public MemberListResponseDto(Member entity){
         this.id = entity.getId();
         this.member_id = entity.getMember_id();
         this.member_name = entity.getMember_name();

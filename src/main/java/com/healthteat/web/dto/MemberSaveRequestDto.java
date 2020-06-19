@@ -7,13 +7,19 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.validation.constraints.Pattern;
+
 @Getter
 @NoArgsConstructor
 public class MemberSaveRequestDto {
 
     private String member_id;
     private String member_name;
+
+    @Pattern(regexp = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$",
+            message = "비밀 번호는 8자 이상의 숫자, 소문자, 대문자, 특수 문자를 모두 포함 해야 합니다.")
     private String member_pw;
+
     private DeleteState delete_state = DeleteState.REMAIN;
 
     @Builder

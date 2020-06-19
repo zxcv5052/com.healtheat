@@ -1,4 +1,4 @@
-package com.healthteat.common.config.auth;
+package com.healthteat.common.config.interceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -7,7 +7,6 @@ import com.healthteat.common.service.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
-
 
 @Component
 @RequiredArgsConstructor
@@ -26,6 +25,6 @@ public class JwtInterceptor implements HandlerInterceptor{
         }else{
             throw new Exception();
         }
-
     }
+
 }

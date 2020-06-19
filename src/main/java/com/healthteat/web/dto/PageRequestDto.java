@@ -7,11 +7,11 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class PageRequestDto {
-    private String page;
-    private String size;
+    private int page;
+    private int size;
 
     @Builder
-    public PageRequestDto(String page, String size)
+    public PageRequestDto(int page, int size)
     {
         this.page = page;
         this.size = size;

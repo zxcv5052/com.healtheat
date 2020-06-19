@@ -7,6 +7,9 @@ import lombok.Getter;
 @Getter
 @Builder
 public class TemplateResult<T> {
+    public static final String SUCCESS_MESSAGE = "SUCCESS";
+    public static final String SERVER_ERROR_MESSAGE = "FAIL";
+
     private Integer code;
     private String message;
     @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -16,7 +19,7 @@ public class TemplateResult<T> {
     public static <T> TemplateResult<T> OK(){
         return (TemplateResult<T>) TemplateResult.builder()
                 .code(200)
-                .message("SUCCESS")
+                .message(SUCCESS_MESSAGE)
                 .build();
     }
 
@@ -24,7 +27,7 @@ public class TemplateResult<T> {
     public static <T> TemplateResult<T> OK(T data){
         return (TemplateResult<T>) TemplateResult.builder()
                 .code(200)
-                .message("SUCCESS")
+                .message(SUCCESS_MESSAGE)
                 .data(data)
                 .build();
     }
@@ -33,7 +36,7 @@ public class TemplateResult<T> {
     public static <T> TemplateResult<T> ERROR(String message){
         return (TemplateResult<T>) TemplateResult.builder()
                 .code(400)
-                .message(message)
+                .message(SERVER_ERROR_MESSAGE)
                 .build();
     }
 

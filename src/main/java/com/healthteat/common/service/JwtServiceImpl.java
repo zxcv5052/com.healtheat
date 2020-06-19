@@ -10,7 +10,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -23,11 +23,14 @@ import java.util.Map;
         public <T> String create(String key, T data, String subject){
             String jwt = Jwts.builder()
                     .setHeaderParam("typ", "JWT")
-                    .setHeaderParam("regDate", System.currentTimeMillis())
+                    //.setHeaderParam("regDate", System.currentTimeMillis())
                     .setSubject(subject)
+                    // .setExpiration(new Date(1300819380))
                     .claim(key, data)
                     .signWith(SignatureAlgorithm.HS256, this.generateKey())
                     .compact();
+            System.out.println("its bug");
+
             return jwt;
         }
 
@@ -50,9 +53,7 @@ import java.util.Map;
             try {
                 key = SALT.getBytes("UTF-8");
             } catch (UnsupportedEncodingException e) {
-
             }
-
             return key;
         }
     @Override
@@ -65,11 +66,8 @@ import java.util.Map;
                     .setSigningKey(SALT.getBytes("UTF-8"))
                     .parseClaimsJws(jwt);
         } catch (Exception e) {
-			Map<String,Object> testMap = new HashMap<>();
-			testMap.put("memberId", 2);
-			return testMap;
+
         }
-        @SuppressWarnings("unchecked")
         Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
         return value;
     }
