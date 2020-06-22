@@ -1,8 +1,12 @@
-# 개요
+# Concept
 
 아이템명 : HealthEat (건강을 먹다)
 
 모델 : 건강기능식품 정보 플랫폼
+
+----
+
+# Using
 
 #### Project Spec
 Moudule | Version
