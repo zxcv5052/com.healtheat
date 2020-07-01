@@ -1,6 +1,7 @@
 package com.healthteat.common.service;
 
 import io.jsonwebtoken.*;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -12,11 +13,14 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Service
+@RequiredArgsConstructor
+
 public class JwtServiceImpl implements JwtService {
-    private static final int ACCESS_TOKEN = 60000; // 1 MINUTE
-    private static final int REFRESH_TOKEN = 60000*60*24*7; // 7 DAYS
+    private final int ACCESS_TOKEN = 60000; // 1 MINUTE
+    private final int REFRESH_TOKEN = 60000*60*24*7; // 7 DAYS
 
     private static final String SALT =  "healtheatSecret";
+
 
     @Override
     public <T> String createRefreshToken(String key, T data, String subject){

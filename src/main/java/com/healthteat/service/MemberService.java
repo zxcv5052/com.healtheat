@@ -5,7 +5,6 @@ import com.healthteat.web.dto.MemberLoginRequestDto;
 import com.healthteat.web.dto.MemberSaveRequestDto;
 import com.healthteat.web.dto.MemberUpdateRequestDto;
 import com.healthteat.web.dto.PageRequestDto;
-import org.springframework.stereotype.Service;
 
 public interface MemberService {
 
