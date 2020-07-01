@@ -7,9 +7,6 @@ import com.healthteat.web.dto.MemberUpdateRequestDto;
 import com.healthteat.web.dto.PageRequestDto;
 import org.springframework.stereotype.Service;
 
-import javax.validation.Valid;
-
-@Service
 public interface MemberService {
 
     TemplateResult create(MemberSaveRequestDto requestDto);

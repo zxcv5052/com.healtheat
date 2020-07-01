@@ -30,6 +30,7 @@ dependencies {
     compile("org.springframework:spring-jdbc:+")
     compile("commons-dbcp:commons-dbcp:1.4")
     compile("mysql:mysql-connector-java:5.1.31")
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
     compile('org.springframework.boot:spring-boot-starter-mustache')
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
     testCompile('org.springframework.boot:spring-boot-starter-test')

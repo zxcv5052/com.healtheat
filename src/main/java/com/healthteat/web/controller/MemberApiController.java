@@ -19,18 +19,13 @@ import javax.servlet.http.HttpServletResponse;
 public class MemberApiController {
 
     private final MemberService memberService;
-    private final JwtService jwtService;
 
     @PostMapping
     public TemplateResult login(@RequestBody MemberLoginRequestDto requestDto, HttpServletResponse response){
         TemplateResult result = memberService.login(requestDto);
         if(result.getCode() == 200) {
-            String token = jwtService.create("member",
-                                            (MemberLoginResponseDto)result.getData(),
-                                            "user");
-            response.setHeader("Authorization", token);
+            response.setHeader("Authorization", (String) result.getData());
         }
-        result = TemplateResult.OK();
         return result;
     }
 

@@ -1,9 +1,6 @@
 package com.healthteat.common.service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jws;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -14,25 +11,43 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Service("jwtService")
-    public class JwtServiceImpl implements JwtService {
+@Service
+public class JwtServiceImpl implements JwtService {
+    private static final int ACCESS_TOKEN = 60000; // 1 MINUTE
+    private static final int REFRESH_TOKEN = 60000*60*24*7; // 7 DAYS
 
-        private static final String SALT =  "healtheatSecret";
+    private static final String SALT =  "healtheatSecret";
 
-        @Override
-        public <T> String create(String key, T data, String subject){
-            String jwt = Jwts.builder()
-                    .setHeaderParam("typ", "JWT")
-                    //.setHeaderParam("regDate", System.currentTimeMillis())
-                    .setSubject(subject)
-                    // .setExpiration(new Date(1300819380))
-                    .claim(key, data)
-                    .signWith(SignatureAlgorithm.HS256, this.generateKey())
-                    .compact();
-            System.out.println("its bug");
+    @Override
+    public <T> String createRefreshToken(String key, T data, String subject){
+        String jwt = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                //.setHeaderParam("regDate", System.currentTimeMillis())
+                .setSubject(subject)
+                .setExpiration(new Date(System.currentTimeMillis() + REFRESH_TOKEN))
+                .claim(key, data)
+                .signWith(SignatureAlgorithm.HS256, this.generateKey())
+                .compact();
 
-            return jwt;
-        }
+        return jwt;
+    }
+    @Override
+    public <T> String createAccessToken(String key, T data, String subject){
+        String jwt = Jwts.builder()
+                .setHeaderParam("typ", "JWT")
+                //.setHeaderParam("regDate", System.currentTimeMillis())
+                .setSubject(subject)
+                .setExpiration(new Date(System.currentTimeMillis() + ACCESS_TOKEN))
+                .claim(key, data)
+                .signWith(SignatureAlgorithm.HS256, this.generateKey())
+                .compact();
+        return jwt;
+    }
+
+    @Override
+    public <T> String reCreateAccessToken(String member_name){
+        return null;
+    }
 
     @Override
     public boolean isUsable(String jwt) {
@@ -71,9 +86,26 @@ import java.util.Map;
         Map<String, Object> value = (LinkedHashMap<String, Object>)claims.getBody().get(key);
         return value;
     }
-
     @Override
-    public int getMemberId() {
+    public boolean getExpToken(String jwt){
+        try{
+            Jws<Claims> claims = Jwts.parser().setSigningKey(SALT).parseClaimsJws(jwt);
+
+            Date exp = claims.getBody().getExpiration();
+
+            Date now = new Date();
+
+            if(exp.after(now)){
+                return true;
+            }
+            return false;
+        }catch (ExpiredJwtException e){
+            return false;
+        }
+    }
+    @Override
+    public int getMemberId()
+    {
         return (int)this.get("member").get("memberId");
     }
 }

@@ -15,7 +15,7 @@ public class MemberLoginRequestDto {
         this.member_pw = entity.getMember_pw();
     }
     @Builder
-    public MemberLoginRequestDto(String member_id, String member_pw)
+    public MemberLoginRequestDto(Member member, String member_id, String member_pw)
     {
         this.member_id = member_id;
         this.member_pw = member_pw;

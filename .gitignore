@@ -1,4 +1,6 @@
 # Project exclude paths
 .gradle
 .idea
+application.properties
 application-oauth.properties
+SlackTarget.class

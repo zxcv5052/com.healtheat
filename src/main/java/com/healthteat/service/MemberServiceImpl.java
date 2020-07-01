@@ -1,22 +1,26 @@
 package com.healthteat.service;
 
 import com.healthteat.common.domain.TemplateResult;
+import com.healthteat.common.service.JwtService;
 import com.healthteat.domain.member.Member;
 import com.healthteat.domain.member.MemberRepository;
 import com.healthteat.web.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.ServletResponse;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
-
+@Service
 public class MemberServiceImpl implements MemberService{
 
+    private final JwtService jwtService;
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -37,12 +41,18 @@ public class MemberServiceImpl implements MemberService{
     public TemplateResult login(MemberLoginRequestDto requestDto){
 
         Member member = memberRepository.findById(requestDto.getMember_id());
+        String key = member.getId()+member.getMember_id();
+        String payload = member.getId() +"";
         if(Objects.nonNull(member)
                 && passwordEncoder.matches(requestDto.getMember_pw(), member.getMember_pw())) {
-            return TemplateResult.OK(new MemberLoginResponseDto(member));
-        }
-
-        else {
+            String refreshToken = jwtService.createRefreshToken(key,
+                    payload,
+                    "user");
+            String accessToken = jwtService.createAccessToken(key,
+                    payload,
+                    "user");
+            return TemplateResult.OK(new MemberLoginRequestDto(member,refreshToken,accessToken));
+        } else {
             return TemplateResult.ERROR("Check Id And Password");
         }
     }
@@ -73,8 +83,7 @@ public class MemberServiceImpl implements MemberService{
                 .map(MemberListResponseDto::new).collect(Collectors.toList());
         if(list.size() != 0){
             return TemplateResult.OK(list);
-        }
-        else{
+        } else{
             return TemplateResult.ERROR("ERROR");
         }
     }

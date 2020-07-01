@@ -18,9 +18,12 @@ public class JwtInterceptor implements HandlerInterceptor{
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
+        // 가지고 있는 것은 AccessToken
         final String token = request.getHeader(HEADER_AUTH);
+        // AccessToken 만료일 확인
+        boolean isExpire = jwtService.getExpToken(token);
 
-        if(token != null && jwtService.isUsable(token)){
+        if(token != null && isExpire && jwtService.isUsable(token)){
             return true;
         }else{
             throw new Exception();

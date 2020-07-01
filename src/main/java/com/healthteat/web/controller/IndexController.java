@@ -2,6 +2,7 @@ package com.healthteat.web.controller;
 
 import com.healthteat.service.MemberService;
 import com.healthteat.common.domain.TemplateResult;
+import com.healthteat.service.MemberServiceImpl;
 import com.healthteat.web.dto.PageRequestDto;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +20,7 @@ public class IndexController {
 
     @GetMapping("/api/members")
     public TemplateResult getMembers(@RequestBody PageRequestDto requestDto) {
-        return memberService.findAllDesc(requestDto);
+        return memberService.readAll(requestDto);
     }
+
 }

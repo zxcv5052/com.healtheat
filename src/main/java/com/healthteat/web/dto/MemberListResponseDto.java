@@ -1,6 +1,5 @@
 package com.healthteat.web.dto;
 
-import com.healthteat.common.domain.TemplateResult;
 import com.healthteat.domain.member.DeleteState;
 import com.healthteat.domain.member.Member;
 import lombok.Getter;
