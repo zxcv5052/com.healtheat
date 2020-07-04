@@ -4,11 +4,13 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
+import org.springframework.data.redis.core.TimeToLive;
 
-import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 @ToString
 @Getter
@@ -18,15 +20,18 @@ import java.util.Date;
 public class RefreshToken implements Serializable {
 
     @Id
-    private String id; // member_id
+    private String refreshToken;
 
-    private String token;
-    private Date expired;
+    private String accessToken;
+
+    @TimeToLive(unit = TimeUnit.DAYS)
+    public long getTimeToLive(){
+        return 7;
+    }
 
     @Builder
-    public RefreshToken(String id, String token, Date expired) {
-        this.id = id;
-        this.token = token;
-        this.expired = expired;
+    public RefreshToken(String refreshToken, String accessToken) {
+        this.refreshToken = refreshToken;
+        this.accessToken = accessToken;
     }
 }

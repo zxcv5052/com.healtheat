@@ -1,4 +1,4 @@
-package com.healthteat.common.domain;
+package com.healthteat.common.domain.slack;
 
 
 import lombok.Getter;

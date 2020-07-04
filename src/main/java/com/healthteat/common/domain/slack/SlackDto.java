@@ -1,4 +1,4 @@
-package com.healthteat.common.domain;
+package com.healthteat.common.domain.slack;
 
 import com.google.common.collect.Lists;
 import lombok.AllArgsConstructor;

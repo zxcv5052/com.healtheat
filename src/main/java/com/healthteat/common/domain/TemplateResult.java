@@ -23,8 +23,8 @@ public class TemplateResult<T> {
                 .build();
     }
 
-    // result OK && data exist
-    public static <T> TemplateResult<T> OK(T data){
+    // result OK && data exist && Accept 가변인자 생각해보자.
+    public static <T> TemplateResult<T> OK(T/*...*/ data){
         return (TemplateResult<T>) TemplateResult.builder()
                 .code(200)
                 .message(SUCCESS_MESSAGE)
@@ -36,6 +36,13 @@ public class TemplateResult<T> {
     public static <T> TemplateResult<T> ERROR(String message){
         return (TemplateResult<T>) TemplateResult.builder()
                 .code(400)
+                .message(SERVER_ERROR_MESSAGE)
+                .build();
+    }
+    // result ERROR
+    public static <T> TemplateResult<T> ERROR(int code, String message){
+        return (TemplateResult<T>) TemplateResult.builder()
+                .code(code)
                 .message(SERVER_ERROR_MESSAGE)
                 .build();
     }

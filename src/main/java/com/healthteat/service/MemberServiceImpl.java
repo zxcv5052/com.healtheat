@@ -6,6 +6,7 @@ import com.healthteat.domain.member.Member;
 import com.healthteat.domain.member.MemberRepository;
 import com.healthteat.web.dto.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Slf4j
 @RequiredArgsConstructor
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -50,7 +52,7 @@ public class MemberServiceImpl implements MemberService{
             String accessToken = jwtService.createAccessToken(key,
                     payload,
                     "user");
-            return TemplateResult.OK(new MemberLoginRequestDto(member,refreshToken,accessToken));
+            return TemplateResult.OK(new MemberLoginResponseDto(member,refreshToken,accessToken));
         } else {
             return TemplateResult.ERROR("Check Id And Password");
         }

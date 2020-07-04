@@ -8,12 +8,15 @@ import com.healthteat.web.dto.MemberSaveRequestDto;
 import com.healthteat.common.domain.TemplateResult;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Api(tags = {"2. Member"})
 
+@Slf4j
 @RequiredArgsConstructor
 @MemberApiControllerAnnotation
 public class MemberApiController {
@@ -24,7 +27,8 @@ public class MemberApiController {
     public TemplateResult login(@RequestBody MemberLoginRequestDto requestDto, HttpServletResponse response){
         TemplateResult result = memberService.login(requestDto);
         if(result.getCode() == 200) {
-            response.setHeader("Authorization", (String) result.getData());
+            MemberLoginResponseDto responseDto = (MemberLoginResponseDto) result.getData();
+            response.setHeader("Authorization", responseDto.getAccess_token());
         }
         return result;
     }
@@ -34,7 +38,7 @@ public class MemberApiController {
         return memberService.create(requestDto);
     }
     @DeleteMapping
-    public TemplateResult logout(@RequestBody String member_id){
+    public TemplateResult logout(HttpServletRequest request){
         return null;
     }
 }
