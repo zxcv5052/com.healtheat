@@ -33,5 +33,6 @@ public class RefreshToken implements Serializable {
     public RefreshToken(String refreshToken, String accessToken) {
         this.refreshToken = refreshToken;
         this.accessToken = accessToken;
+        getTimeToLive();
     }
 }

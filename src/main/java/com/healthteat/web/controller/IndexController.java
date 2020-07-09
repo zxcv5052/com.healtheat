@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class IndexController {
     private final MemberService memberService;
 
-    @GetMapping("/api/members")
+    @GetMapping("/admin/api/members")
     public TemplateResult getMembers(@RequestBody PageRequestDto requestDto) {
         return memberService.readAll(requestDto);
     }

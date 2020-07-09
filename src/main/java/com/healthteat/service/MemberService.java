@@ -14,7 +14,7 @@ public interface MemberService {
 
     TemplateResult update(MemberUpdateRequestDto requestDto);
 
-    TemplateResult delete(Long id);
+    TemplateResult delete(String token);
 
     TemplateResult readAll(PageRequestDto requestDto);
 

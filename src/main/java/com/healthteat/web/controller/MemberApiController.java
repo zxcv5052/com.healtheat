@@ -20,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 @RequiredArgsConstructor
 @MemberApiControllerAnnotation
 public class MemberApiController {
-
+    private final String HEADER_AUTH = "Authorization";
     private final MemberService memberService;
 
     @PostMapping
@@ -28,7 +28,7 @@ public class MemberApiController {
         TemplateResult result = memberService.login(requestDto);
         if(result.getCode() == 200) {
             MemberLoginResponseDto responseDto = (MemberLoginResponseDto) result.getData();
-            response.setHeader("Authorization", responseDto.getAccess_token());
+            response.setHeader(HEADER_AUTH, responseDto.getAccess_token());
         }
         return result;
     }
@@ -39,6 +39,7 @@ public class MemberApiController {
     }
     @DeleteMapping
     public TemplateResult logout(HttpServletRequest request){
-        return null;
+        String token = request.getHeader(HEADER_AUTH);
+        return memberService.delete(token);
     }
 }

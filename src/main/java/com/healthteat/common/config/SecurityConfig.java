@@ -13,7 +13,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @RequiredArgsConstructor
 public class SecurityConfig implements WebMvcConfigurer{
     private static final String[] EXCLUDE_PATHS = {
-            "/**"
+
     };
 
     private final JwtInterceptor jwtInterceptor;
@@ -21,7 +21,7 @@ public class SecurityConfig implements WebMvcConfigurer{
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(jwtInterceptor)
-                .addPathPatterns("/**")
+                .addPathPatterns("/admin/**")
                 .excludePathPatterns(EXCLUDE_PATHS);
     }
 

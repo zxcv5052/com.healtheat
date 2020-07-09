@@ -36,14 +36,14 @@ public class TemplateResult<T> {
     public static <T> TemplateResult<T> ERROR(String message){
         return (TemplateResult<T>) TemplateResult.builder()
                 .code(400)
-                .message(SERVER_ERROR_MESSAGE)
+                .message(message)
                 .build();
     }
     // result ERROR
     public static <T> TemplateResult<T> ERROR(int code, String message){
         return (TemplateResult<T>) TemplateResult.builder()
                 .code(code)
-                .message(SERVER_ERROR_MESSAGE)
+                .message(message)
                 .build();
     }
 

@@ -35,6 +35,7 @@ public class MemberServiceImpl implements MemberService{
         Object object = memberRepository.save(requestDto.toEntity()).getId();
         if(object != null) return TemplateResult.OK();
         else return TemplateResult.ERROR("FAIL");
+
     }
 
     @Override
@@ -42,14 +43,13 @@ public class MemberServiceImpl implements MemberService{
     public TemplateResult login(MemberLoginRequestDto requestDto){
 
         Member member = memberRepository.findById(requestDto.getMember_id());
-        String key = member.getId()+member.getMember_id();
         String payload = member.getId() +"";
         if(Objects.nonNull(member)
                 && passwordEncoder.matches(requestDto.getMember_pw(), member.getMember_pw())) {
-            String refreshToken = jwtService.createRefreshToken(key,
+            String refreshToken = jwtService.createRefreshToken(
                     payload,
                     "user");
-            String accessToken = jwtService.createAccessToken(key,
+            String accessToken = jwtService.createAccessToken(
                     payload,
                     "user");
             return TemplateResult.OK(new MemberLoginResponseDto(member,refreshToken,accessToken));
@@ -66,8 +66,13 @@ public class MemberServiceImpl implements MemberService{
 
     @Override
     @Transactional
-    public TemplateResult delete(Long id){
-        return null;
+    public TemplateResult delete(String token){
+        if(token == null){
+            return TemplateResult.ERROR("로그아웃 ERROR");
+        }else{
+            jwtService.createBlackList(token);
+            return TemplateResult.OK("OK");
+        }
     }
 
     @Override
