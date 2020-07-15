@@ -52,6 +52,7 @@ public class MemberServiceImpl implements MemberService{
             String accessToken = jwtService.createAccessToken(
                     payload,
                     "user");
+
             return TemplateResult.OK(new MemberLoginResponseDto(member,refreshToken,accessToken));
         } else {
             return TemplateResult.ERROR("Check Id And Password");
