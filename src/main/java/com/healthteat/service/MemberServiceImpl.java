@@ -1,7 +1,6 @@
 package com.healthteat.service;
 
 import com.healthteat.common.domain.TemplateResult;
-import com.healthteat.common.service.JwtService;
 import com.healthteat.domain.member.Member;
 import com.healthteat.domain.member.MemberRepository;
 import com.healthteat.web.dto.*;

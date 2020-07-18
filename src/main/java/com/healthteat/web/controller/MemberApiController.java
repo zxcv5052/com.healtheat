@@ -1,6 +1,5 @@
 package com.healthteat.web.controller;
 
-import com.healthteat.common.service.JwtService;
 import com.healthteat.service.MemberService;
 import com.healthteat.web.dto.MemberLoginRequestDto;
 import com.healthteat.web.dto.MemberLoginResponseDto;
