@@ -33,6 +33,4 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         // AbstractAuthenticationProcessingFilter의 AuthenticationManager
         return this.getAuthenticationManager().authenticate(authRequest);
     }
-
-
 }
