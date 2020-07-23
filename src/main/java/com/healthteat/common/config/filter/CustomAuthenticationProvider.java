@@ -1,6 +1,6 @@
 package com.healthteat.common.config.filter;
 
-import com.healthteat.common.config.CustomUserDetailsService;
+import com.healthteat.common.service.CustomUserDetailsService;
 import com.healthteat.domain.member.MemberDetails;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationProvider;

@@ -1,4 +1,4 @@
-package com.healthteat.common.config;
+package com.healthteat.common.service;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
